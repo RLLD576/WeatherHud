@@ -10,21 +10,26 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.WorldProperties;
 import net.minecraft.world.level.ServerWorldProperties;
+import net.rober.weatherhud.WeatherHud;
 import net.rober.weatherhud.mixin.ServerWorldMixin;
 import net.rober.weatherhud.networking.ModMessages;
 
 public class PlayerTickHandler implements ServerTickEvents.StartTick{
     @Override
     public void onStartTick(MinecraftServer server) {
-        WorldProperties properties = server.getOverworld().getLevelProperties();
-        ServerWorldProperties worldProperties = ((ServerWorldMixin)server.getOverworld()).getWorldProperties();
-        PacketByteBuf buf = PacketByteBufs.create();
-        buf.writeInt(worldProperties.getRainTime());
-        buf.writeInt(worldProperties.getThunderTime());
-        buf.writeBoolean(properties.isRaining());
-        buf.writeBoolean(properties.isThundering());
-        for(ServerPlayerEntity player: server.getPlayerManager().getPlayerList()){
-            ServerPlayNetworking.send(player, ModMessages.SEND_WEATHER_DATA_ID,buf);
+        WeatherHud.timer--;
+        if(WeatherHud.timer<=0) {
+            WorldProperties properties = server.getOverworld().getLevelProperties();
+            ServerWorldProperties worldProperties = ((ServerWorldMixin) server.getOverworld()).getWorldProperties();
+            PacketByteBuf buf = PacketByteBufs.create();
+            buf.writeInt(worldProperties.getRainTime());
+            buf.writeInt(worldProperties.getThunderTime());
+            buf.writeBoolean(properties.isRaining());
+            buf.writeBoolean(properties.isThundering());
+            for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
+                ServerPlayNetworking.send(player, ModMessages.SEND_WEATHER_DATA_ID, buf);
+            }
+            WeatherHud.timer = 20;
         }
     }
 }

@@ -14,11 +14,9 @@ public class WeatherHudOverlay implements HudRenderCallback {
             TextRenderer renderer = MinecraftClient.getInstance().textRenderer;
             final int height = renderer.fontHeight;
             final int x = 1;
-            int color = 0xFFFFFFFF;
-            renderer.draw(matrixStack,"Rain counter: "+ WeatherDataS2CPacket.rainCounter,x,1,color);
-            renderer.draw(matrixStack,"Thunder counter: "+ WeatherDataS2CPacket.thunderCounter,x,height+1,color);
-            renderer.draw(matrixStack,"Is raining: "+ WeatherDataS2CPacket.raining,x,height*2+1,color);
-            renderer.draw(matrixStack,"Is thundering: "+ WeatherDataS2CPacket.thundering,x,height*3+1,color);
+            final int y = 30;
+            renderer.draw(matrixStack,"Rain counter: "+ WeatherDataS2CPacket.rainCounter,x,y,WeatherDataS2CPacket.raining?0xFF55FF55:0xFFFF5555);
+            renderer.draw(matrixStack,"Thunder counter: "+ WeatherDataS2CPacket.thunderCounter,x,height+y,WeatherDataS2CPacket.thundering?0xFF55FF55:0xFFFF5555);
         }
     }
 }
