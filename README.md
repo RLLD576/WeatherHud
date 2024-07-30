@@ -4,4 +4,5 @@
 ### For learn how to interpret the weather counters, please refer to the [Thunderstorm behavior article](https://minecraft.wiki/w/Thunderstorm#Behavior) of the Minecraft wiki
 ### When displaying the value, green means that the rain or thunder is on and red means that are off
 ### When playing on a server, the mod has to be installed on client and server
-### Release minecraft version is 1.19.2
+### Release minecraft version is 1.19.2 (Working on ports to other versions)
+![image](https://github.com/user-attachments/assets/00386413-735b-4ff2-86ab-b23500c3e74b)
