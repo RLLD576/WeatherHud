@@ -13,6 +13,7 @@ import net.minecraft.world.level.ServerWorldProperties;
 import net.rober.weatherhud.WeatherHud;
 import net.rober.weatherhud.mixin.ServerWorldMixin;
 import net.rober.weatherhud.networking.ModMessages;
+import net.rober.weatherhud.networking.packets.WeatherDataS2CPacket;
 
 public class PlayerTickHandler implements ServerTickEvents.StartTick{
     @Override
@@ -27,7 +28,15 @@ public class PlayerTickHandler implements ServerTickEvents.StartTick{
             buf.writeBoolean(properties.isRaining());
             buf.writeBoolean(properties.isThundering());
             for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
-                ServerPlayNetworking.send(player, ModMessages.SEND_WEATHER_DATA_ID, buf);
+                //? <=1.19.4 {
+                /*ServerPlayNetworking.send(player, ModMessages.SEND_WEATHER_DATA_ID, buf);
+                *///?} else {
+                ServerPlayNetworking.send(player, new WeatherDataS2CPacket(worldProperties.getRainTime(),
+                        worldProperties.getThunderTime(),
+                        worldProperties.isRaining(),
+                        worldProperties.isThundering()
+                        ));
+                //?}
             }
             WeatherHud.timer = 20;
         }
