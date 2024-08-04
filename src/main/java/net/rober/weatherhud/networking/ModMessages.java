@@ -6,7 +6,11 @@ import net.rober.weatherhud.WeatherHud;
 import net.rober.weatherhud.networking.packets.WeatherDataS2CPacket;
 
 public class ModMessages {
+    //? <=1.19.4 {
+    /*public static final Identifier SEND_WEATHER_DATA_ID = new Identifier(WeatherHud.MOD_ID,"weather_data");
+    *///?} else {
     public static final Identifier SEND_WEATHER_DATA_ID = Identifier.of(WeatherHud.MOD_ID,"weather_data");
+    //?}
 
     public static void registerS2CPackets(){
         //? <=1.19.4 {
